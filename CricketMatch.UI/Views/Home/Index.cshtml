@@ -1,0 +1,145 @@
+﻿@model CricketMatch.UI.Models.MatchPlayerViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<form action="SubmitData">
+    <div class="form-group">
+        <table>
+            <tr>
+                <td>Match Name:</td>
+                <td><input type="text" class="form-control" placeholder="Enter match name"></td>
+                <td>Match Date:</td>
+                <td><input type="Date" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td>Team One:</td>
+                <td>
+                    <select class="form-control">
+                        <option>Team 1</option>
+                        <option>India</option>
+                        <option>England</option>
+                        <option>Australia</option>
+                    </select>
+                </td>
+                <td>Team Two</td>
+                <td>
+                    <select class="form-control">
+                        <option>Team 2</option>
+                        <option>Bangladesh</option>
+                        <option>South Africa</option>
+                        <option>Afganisthan</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Start Time</td>
+                <td><input type="time" class="form-control"></td>
+                <td>Address</td>
+                <td>
+                    <div class="form-outline">
+                        <textarea class="form-control"  rows="2"></textarea>
+                    </div>
+                </td>
+
+            </tr>
+        </table>
+
+    </div>
+    <div class="bottom-right">
+        <button type="button" class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#addplayerModal"
+                id="addplayer">
+            Add Players
+        </button>
+    </div>
+
+    <div class="modal" tabindex="-1" id="addplayerModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add player</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                            <td>Name</td>
+                            <td>
+                                <select class="form-control">
+                                    <option>Select Player</option>
+                                    <option>Virat Kohli</option>
+                                    <option>Rohit Sharma</option>
+                                    <option>Steve Smith</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>
+                                <select class="form-control">
+                                    <option>Select Type</option>
+                                    <option>Batsman</option>
+                                    <option>Bowler</option>
+                                    <option>Wicket Keeper</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Position</td>
+                            <td><input type="text" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td>Team</td>
+                            <td>
+                                <select class="form-control">
+                                    <option>Select Team</option>
+                                    <option>India</option>
+                                    <option>England</option>
+                                    <option>Australia</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Add Player</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table caption-top">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Position</th>
+                <th scope="col">Team</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Virat</td>
+                <td>Virat</td>
+                <td>Virat</td>
+                <td>Virat</td>
+                <td>
+                    <button class="btn btn-success " type="button" data-toggle="tooltip" data-placement="top" title="Edit">Edit</button>
+                    <button class="btn btn-danger " type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash">Delete</i></button>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <input type="submit" class="btn btn-success">Submit
+        <input type="reset" class="btn btn-danger">Cancel
+    </div>
+</form>
+

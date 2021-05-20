@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MatchPlayerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MatchDetails">
+          <Key>
+            <PropertyRef Name="MatchId" />
+          </Key>
+          <Property Name="MatchId" Type="int" Nullable="false" />
+          <Property Name="MatchName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MatchDate" Type="date" Nullable="false" />
+          <Property Name="TeamOne" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TeamTwo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlayerDetails">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Position" Type="int" Nullable="false" />
+          <Property Name="Team" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MatchId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_PlayerDetails_MatchDetails">
+          <End Role="MatchDetails" Type="Self.MatchDetails" Multiplicity="1" />
+          <End Role="PlayerDetails" Type="Self.PlayerDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MatchDetails">
+              <PropertyRef Name="MatchId" />
+            </Principal>
+            <Dependent Role="PlayerDetails">
+              <PropertyRef Name="MatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MatchPlayerModelStoreContainer">
+          <EntitySet Name="MatchDetails" EntityType="Self.MatchDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayerDetails" EntityType="Self.PlayerDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PlayerDetails_MatchDetails" Association="Self.FK_PlayerDetails_MatchDetails">
+            <End Role="MatchDetails" EntitySet="MatchDetails" />
+            <End Role="PlayerDetails" EntitySet="PlayerDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MatchPlayerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MatchDetail">
+          <Key>
+            <PropertyRef Name="MatchId" />
+          </Key>
+          <Property Name="MatchId" Type="Int32" Nullable="false" />
+          <Property Name="MatchName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MatchDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TeamOne" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TeamTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PlayerDetails" Relationship="Self.FK_PlayerDetails_MatchDetails" FromRole="MatchDetails" ToRole="PlayerDetails" />
+        </EntityType>
+        <EntityType Name="PlayerDetail">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Position" Type="Int32" Nullable="false" />
+          <Property Name="Team" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MatchId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MatchDetail" Relationship="Self.FK_PlayerDetails_MatchDetails" FromRole="PlayerDetails" ToRole="MatchDetails" />
+        </EntityType>
+        <Association Name="FK_PlayerDetails_MatchDetails">
+          <End Role="MatchDetails" Type="Self.MatchDetail" Multiplicity="1" />
+          <End Role="PlayerDetails" Type="Self.PlayerDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MatchDetails">
+              <PropertyRef Name="MatchId" />
+            </Principal>
+            <Dependent Role="PlayerDetails">
+              <PropertyRef Name="MatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MatchPlayerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MatchDetails" EntityType="Self.MatchDetail" />
+          <EntitySet Name="PlayerDetails" EntityType="Self.PlayerDetail" />
+          <AssociationSet Name="FK_PlayerDetails_MatchDetails" Association="Self.FK_PlayerDetails_MatchDetails">
+            <End Role="MatchDetails" EntitySet="MatchDetails" />
+            <End Role="PlayerDetails" EntitySet="PlayerDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MatchPlayerModelStoreContainer" CdmEntityContainer="MatchPlayerEntities">
+          <EntitySetMapping Name="MatchDetails">
+            <EntityTypeMapping TypeName="MatchPlayerModel.MatchDetail">
+              <MappingFragment StoreEntitySet="MatchDetails">
+                <ScalarProperty Name="MatchId" ColumnName="MatchId" />
+                <ScalarProperty Name="MatchName" ColumnName="MatchName" />
+                <ScalarProperty Name="MatchDate" ColumnName="MatchDate" />
+                <ScalarProperty Name="TeamOne" ColumnName="TeamOne" />
+                <ScalarProperty Name="TeamTwo" ColumnName="TeamTwo" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayerDetails">
+            <EntityTypeMapping TypeName="MatchPlayerModel.PlayerDetail">
+              <MappingFragment StoreEntitySet="PlayerDetails">
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="MatchId" ColumnName="MatchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
