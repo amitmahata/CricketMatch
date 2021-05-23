@@ -2,8 +2,7 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
-
+<script src="~/Scripts/Custom/Index-Custom.js"></script>
 <form action="SubmitData">
     <div class="form-group">
         <table>
@@ -40,7 +39,7 @@
                 <td>Address</td>
                 <td>
                     <div class="form-outline">
-                        <textarea class="form-control"  rows="2"></textarea>
+                        <textarea class="form-control" rows="2"></textarea>
                     </div>
                 </td>
 
@@ -62,16 +61,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add player</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
-                
                 </div>
                 <div class="modal-body">
                     <table>
                         <tr>
                             <td>Name</td>
                             <td>
-                                <select class="form-control">
-                                    <option>Select Player</option>
+                                <select class="form-control" id="playerName">
+                                    <option value="0">Select Player</option>
                                     <option>Virat Kohli</option>
                                     <option>Rohit Sharma</option>
                                     <option>Steve Smith</option>
@@ -81,8 +78,8 @@
                         <tr>
                             <td>Type</td>
                             <td>
-                                <select class="form-control">
-                                    <option>Select Type</option>
+                                <select class="form-control" id="playerType">
+                                    <option value="0">Select Type</option>
                                     <option>Batsman</option>
                                     <option>Bowler</option>
                                     <option>Wicket Keeper</option>
@@ -91,13 +88,13 @@
                         </tr>
                         <tr>
                             <td>Position</td>
-                            <td><input type="text" class="form-control"></td>
+                            <td><input type="text" class="form-control" id="playerPosition"></td>
                         </tr>
                         <tr>
                             <td>Team</td>
                             <td>
-                                <select class="form-control">
-                                    <option>Select Team</option>
+                                <select class="form-control" id="playerTeam">
+                                    <option value="0">Select Team</option>
                                     <option>India</option>
                                     <option>England</option>
                                     <option>Australia</option>
@@ -107,39 +104,39 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Add Player</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="AddPlayer()">Add Player</button>
                 </div>
             </div>
         </div>
     </div>
-    <table class="table caption-top">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Type</th>
-                <th scope="col">Position</th>
-                <th scope="col">Team</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Virat</td>
-                <td>Virat</td>
-                <td>Virat</td>
-                <td>Virat</td>
-                <td>
-                    <button class="btn btn-success " type="button" data-toggle="tooltip" data-placement="top" title="Edit">Edit</button>
-                    <button class="btn btn-danger " type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash">Delete</i></button>
+    <table id="playerTab">
+        @*<thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Team</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Virat</td>
+                    <td>Virat</td>
+                    <td>Virat</td>
+                    <td>Virat</td>
+                    <td>
+                        <button class="btn btn-success " type="button" data-toggle="tooltip" data-placement="top" title="Edit">Edit</button>
+                        <button class="btn btn-danger " type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash">Delete</i></button>
 
-                </td>
-            </tr>
-        </tbody>
+                    </td>
+                </tr>
+            </tbody>*@
     </table>
     <div>
-        <input type="submit" class="btn btn-success">Submit
-        <input type="reset" class="btn btn-danger">Cancel
+        <input type="submit" class="btn btn-success" value="Submit" />
+        <input type="reset" class="btn btn-danger" value="Reset" />
     </div>
 </form>
 
